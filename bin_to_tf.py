@@ -1,7 +1,7 @@
 # bnkosi
 # Jan 2020
 
-var_list = ['a','b','c','d']
+var_list = ['a', 'b', 'c']
 line = []
 num_of_rows = len(var_list) ** 2
 widest_num = len(str(bin(num_of_rows - 1)[2:]))
@@ -14,4 +14,4 @@ for i in reversed(range(num_of_rows)):
         elif letter == '1':
             line.append('True')
 
-print(line)         
+print(line)
