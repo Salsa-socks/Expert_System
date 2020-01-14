@@ -15,8 +15,8 @@
 
 import string
 from read_file import readfile
-from process_lines import process_lines, set_initial_facts
-from values import rules, queries, inital_facts, facts
+from process_lines import process_lines, set_initial_facts, process_rules
+from values import rules, queries, inital_facts, facts, implications, bi_implications
 
 
 file_text = readfile()
@@ -26,8 +26,11 @@ file_text = file_text.split('\n')
 # Process the lines into arrays.
 process_lines(file_text)
 print("Rules", rules)
-print("Queries", queries)
-print("initial facts", inital_facts)
+# print("Queries", queries)
+# print("initial facts", inital_facts)
 # Set the intial facts in to true
 set_initial_facts()
-print(facts)
+# print(facts)
+process_rules(rules)
+print("implications", implications)
+print("bi_implications", bi_implications)

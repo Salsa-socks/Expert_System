@@ -27,5 +27,7 @@ facts = {
     "Z" :False
 }
 rules = []
+implications = {}
+bi_implications = {}
 inital_facts = []
 queries = []
