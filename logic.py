@@ -1,7 +1,7 @@
 from itertools import product
  
 def table_of_truth():
-    print("Hi this thing makes a Truth Table from Inpt, type 'exit' or 'quit' to exit")
+    print("Hi this thing makes a Truth Table. Please write an expression or dont, its up to you. Type 'exit' or 'quit' to exit")
     while True:
         input_exp = input('\nBoolean expression: ')
         input_exp = input_exp.strip()
