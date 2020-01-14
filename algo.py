@@ -14,4 +14,20 @@
 #     <=> : IF AND ONLY IF
 
 import string
+from read_file import readfile
+from process_lines import process_lines, set_initial_facts
+from values import rules, queries, inital_facts, facts
 
+
+file_text = readfile()
+# print(file_text)
+file_text = file_text.split('\n')
+# print(file_text)
+# Process the lines into arrays.
+process_lines(file_text)
+print("Rules", rules)
+print("Queries", queries)
+print("initial facts", inital_facts)
+# Set the intial facts in to true
+set_initial_facts()
+print(facts)

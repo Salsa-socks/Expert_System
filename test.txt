@@ -1,0 +1,18 @@
+# This is a test.
+
+C           => E
+A + B + C   => D
+A | C       => B
+A + !B      => F
+C | !G      => H
+V ^ W       => X
+A + B       => Y + Z
+C | D       => X | V
+E + F       => !V
+A + B       <=> C
+A + B       <=> !C
+
+
+=ABG                    # Initial statements.
+
+?GVX                    # Queries

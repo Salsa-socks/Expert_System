@@ -19,4 +19,5 @@ def readfile():
     else:
         print(in_put)
         f = open(in_put, "r")
-        print(f.read())
+        # print(f.read())
+        return f.read()
