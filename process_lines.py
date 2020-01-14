@@ -54,4 +54,4 @@ def process_rules(rules):
                 implications[tmp_rule[0].strip()] = arr 
 
 
-        print("Processed rules", tmp_rule)
+
