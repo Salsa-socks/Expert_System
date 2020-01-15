@@ -25,12 +25,12 @@ file_text = file_text.split('\n')
 # print(file_text)
 # Process the lines into arrays.
 process_lines(file_text)
-print("Rules", rules)
+# print("Rules", rules)
 # print("Queries", queries)
-print("initial facts", inital_facts)
+# print("initial facts", inital_facts)
 # Set the intial facts in to true
 set_initial_facts()
-print(facts)
+# print(facts)
 process_rules(rules)
 print("implications", implications)
 print("bi_implications", bi_implications)
@@ -38,3 +38,12 @@ print("bi_implications", bi_implications)
 # workout the  rules.
 work_out_rules()
 print("Facts", facts)
+
+print("Workout the values again")
+work_out_rules()
+print('\n\nFacts', facts)
+
+print("Workout the values again")
+work_out_rules()
+print('\n\nFacts', facts)
+

@@ -24,7 +24,8 @@ facts = {
     "W" :False,
     "X" :False,
     "Y" :False,
-    "Z" :False
+    "Z" :False,
+    'tmp': ''
 }
 rules = []
 implications = {}
