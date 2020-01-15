@@ -20,7 +20,7 @@ def process_lines(file_text):
 
 def set_initial_facts():
     global facts
-    for query in queries:
+    for query in inital_facts:
         for x in range(len(query) - 1):
             if query[x + 1] != ' ':
                 fact = query[x + 1]
@@ -55,3 +55,33 @@ def process_rules(rules):
 
 
 
+def is_compound(implicator):
+    if '+' in implicator or '|' in implicator or '!' in implicator or '^' in implicator:
+        return True
+    else:
+        return False
+
+"""
+    Start processsing the rules to determine if a rule is true, false or undertermined.
+"""
+def work_out_rules():
+    global implications
+    global facts
+
+    implicators = list(implications.keys())
+    implicated = list(implications.values())
+
+    """
+        Go though the list of rules and find out if the value of the rule is true.
+        so far compound statments are ignored.
+    """
+    for x in range(len(implicators)):
+        if not is_compound(implicators[x]):
+            key = facts[implicators[x]]
+            if not is_compound(implicated[x][0]):
+                facts[implicated[x][0]] = key
+            else:
+                print("\t\tis compound")
+                
+        else:
+            print("\tis compound.")
