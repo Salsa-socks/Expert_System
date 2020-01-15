@@ -1,9 +1,10 @@
 # bnkosi
 # Jan 2020
 
-var_list = ['b']
+var_list = ['a','b']
 line = []
 num_of_rows = len(var_list) ** 2
+print(num_of_rows)
 widest_num = len(str(bin(num_of_rows - 1)[2:]))
 
 for i in reversed(range(num_of_rows)):
