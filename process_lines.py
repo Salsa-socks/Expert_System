@@ -115,14 +115,37 @@ def propergate(statement):
             facts['tmp'] = value_1 or value_2
             print("This value might still change", facts['tmp'])
             operands.append('tmp')
+        if operator == '^':
+            facts['tmp'] = value_1 ^ value_2
+            print("The value might stiull change again", facts['tmp'])
+            operands.append("tmp")
 
 
     return (facts['tmp'])
 
 
+"""
+    Implicated progation.
 
+"""
+def imp_prop(statement, value):
+    operands = []
+    operators = [] 
+    set_value = value
 
+    components = statement.split(' ')
+    for comp in components:
+        if comp == '+' or comp == '|' or comp == '^':
+            operators.append(comp)
+        else:
+            operands.append(comp)
 
+    for operator in operators:
+        if operator != '+':
+            set_value = 'undefined'
+        for op in operands:
+            facts[op] = value
+        
 """
     Start processsing the rules to determine if a rule is true, false or undertermined.
 """
@@ -139,18 +162,28 @@ def work_out_rules():
     """
     for x in range(len(implicators)):
         if not is_compound(implicators[x]):
-            print("\t\tNot compound")
             key = facts[implicators[x]]
             if not is_compound(implicated[x][0]):
                 facts[implicated[x][0]] = key
             else:
-                print("\t\tis compound")
                 facts[implicated[x][0]] = "undetermind"
                 
         else:
-            print("\tis compound.")
             value = propergate(implicators[x])
             if not is_compound(implicated[x][0]):
                 facts[implicated[x][0]] = value
             else:
-                facts[implicated[x][0]] = 'undefined'
+                # facts[implicated[x][0]] = 'undefined'
+                imp_prop(implicated[x][0], value)
+
+
+def answer_q():
+    global queries
+    global facts
+
+    for x in range(len(queries[0])):
+        if queries[0][x] == ' ':
+            break
+        if queries[0][x] == '?':
+            continue
+        print(queries[0][x], 'is', facts[queries[0][x]])

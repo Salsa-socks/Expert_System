@@ -15,7 +15,7 @@
 
 import string
 from read_file import readfile
-from process_lines import process_lines, set_initial_facts, process_rules, work_out_rules
+from process_lines import process_lines, set_initial_facts, process_rules, work_out_rules, answer_q
 from values import rules, queries, inital_facts, facts, implications, bi_implications
 
 
@@ -43,7 +43,12 @@ print("Workout the values again")
 work_out_rules()
 print('\n\nFacts', facts)
 
-print("Workout the values again")
-work_out_rules()
-print('\n\nFacts', facts)
+# print("Workout the values again")
+# work_out_rules()
+# print('\n\nFacts', facts)
 
+
+
+print(queries)
+# answer queries
+answer_q()
