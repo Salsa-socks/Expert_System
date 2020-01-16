@@ -1,3 +1,4 @@
+import re
 from values import rules, inital_facts, queries, facts, implications, bi_implications
 
 def process_lines(file_text):
@@ -61,7 +62,7 @@ def process_rules(rules):
         compound: A + B | D
 """
 def is_compound(implicator):
-    if '+' in implicator or '|' in implicator or '!' in implicator or '^' in implicator:
+    if '+' in implicator or '|' in implicator or '!' in implicator or '^' in implicator or '(' in implicator:
         return True
     else:
         return False
@@ -102,8 +103,8 @@ def propergate(statement):
             value_1 = not value_1
         if op2_not:
             value_2 = not value_2
-        # print("Operands", operand_1, operand_2)
-        # print("Ooperators", operator)
+        print("Operands", operand_1, operand_2)
+        print("Ooperators", operator)
 
 
         # Process the 'and' operator
@@ -144,8 +145,81 @@ def imp_prop(statement, value):
         if operator != '+':
             set_value = 'undefined'
         for op in operands:
-            facts[op] = value
+            facts[op] = set_value
         
+
+"""
+    Work on substituting the brackets
+"""
+def sub_brackets(statement):
+    global facts
+    tmp_str = ""
+    add = False
+    operands = []
+    operators = []
+    op1_not = False
+    op2_not = False
+
+    for char in statement:
+        if char == '(':
+            add = True
+            continue
+        if char == ')':
+            break
+        if add:
+            tmp_str += char
+    # Get all the components.
+    components = tmp_str.split(' ')
+    for comp in components:
+        if comp == '+' or comp == '|' or comp == '^':
+            operators.append(comp)
+        else:
+            operands.append(comp)
+
+    for operator in operators:
+        # print(operands)
+        operand_1 = operands.pop(0)
+        operand_2 = operands.pop(0)
+
+        if '!' in operand_1:
+            op1_not = True
+            operand_1 = operand_1[1]
+        if '!' in operand_2:
+            op2_not = True
+            operand_2 = operand_2[1]
+        # get the values of the operands
+        value_1 = facts[operand_1]
+        value_2 = facts[operand_2]
+
+        # Check if the values have a not in them.
+        if op1_not:
+            value_1 = not value_1
+        if op2_not:
+            value_2 = not value_2
+        # print("Operands", operand_1, operand_2)
+        # print("Ooperators", operator)
+
+
+        # Process the 'and' operator
+        if operator == '+':
+            facts["@"] = value_1 and value_2
+            print("THe value of the result is ", facts['@'])
+            operands.append('@')
+        if operator == '|':
+            facts['@'] = value_1 or value_2
+            print("This value might still change", facts['@'])
+            operands.append('@')
+        if operator == '^':
+            facts['@'] = value_1 ^ value_2
+            print("The value might stiull change again", facts['@'])
+            operands.append("@")
+
+    print("The value of the bracket is:", facts['@'])
+    print(operands)
+    print(operators)
+
+
+
 """
     Start processsing the rules to determine if a rule is true, false or undertermined.
 """
@@ -164,14 +238,23 @@ def work_out_rules():
         if not is_compound(implicators[x]):
             key = facts[implicators[x]]
             if not is_compound(implicated[x][0]):
-                facts[implicated[x][0]] = key
+                facts[implicated[x][0]] = not(key) or facts[implicated[x][0]]
             else:
                 facts[implicated[x][0]] = "undetermind"
                 
         else:
+            # check if the complex statment has brackets
+            if '(' in  implicators[x]:
+                print('statement has a bracket')
+                sub_brackets(implicators[x])
+                implicators[x] = re.sub(r" ?\([^)]+\)", "@", implicators[x])
+                print("\timplications:", implicators[x])
+
+                # continue
             value = propergate(implicators[x])
             if not is_compound(implicated[x][0]):
-                facts[implicated[x][0]] = value
+                print("\tNot a complex statement")
+                facts[implicated[x][0]] = not(value) or facts[implicated[x][0]]
             else:
                 # facts[implicated[x][0]] = 'undefined'
                 imp_prop(implicated[x][0], value)

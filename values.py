@@ -32,3 +32,5 @@ implications = {}
 bi_implications = {}
 inital_facts = []
 queries = []
+
+bracket_count = 0
