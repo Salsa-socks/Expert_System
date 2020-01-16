@@ -164,14 +164,14 @@ def work_out_rules():
         if not is_compound(implicators[x]):
             key = facts[implicators[x]]
             if not is_compound(implicated[x][0]):
-                facts[implicated[x][0]] = key
+                facts[implicated[x][0]] = not(key) | facts[implicated[x][0]]
             else:
                 facts[implicated[x][0]] = "undetermind"
                 
         else:
             value = propergate(implicators[x])
             if not is_compound(implicated[x][0]):
-                facts[implicated[x][0]] = value
+                facts[implicated[x][0]] = not(value) | facts[implicated[x][0]
             else:
                 # facts[implicated[x][0]] = 'undefined'
                 imp_prop(implicated[x][0], value)
