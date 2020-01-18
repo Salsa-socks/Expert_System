@@ -39,9 +39,9 @@ print("bi_implications", bi_implications)
 work_out_rules()
 print("Facts", facts)
 
-# print("Workout the values again")
-# work_out_rules()
-# print('\n\nFacts', facts)
+print("Workout the values again")
+work_out_rules()
+print('\n\nFacts', facts)
 
 # print("Workout the values again")
 # work_out_rules()

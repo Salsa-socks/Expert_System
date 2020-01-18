@@ -1,7 +1,7 @@
 # bnkosi
 # Jan 2020
 
-var_list = ['a','b']
+var_list = ['b']
 line = []
 num_of_rows = len(var_list) ** 2
 print(num_of_rows)

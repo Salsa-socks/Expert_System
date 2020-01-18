@@ -145,7 +145,7 @@ def imp_prop(statement, value):
         if operator != '+':
             set_value = 'undefined'
         for op in operands:
-            facts[op] = set_value
+            facts[op] = value
         
 
 """
@@ -238,7 +238,8 @@ def work_out_rules():
         if not is_compound(implicators[x]):
             key = facts[implicators[x]]
             if not is_compound(implicated[x][0]):
-                facts[implicated[x][0]] = not(key) or facts[implicated[x][0]]
+                # facts[implicated[x][0]] = not(key) | facts[implicated[x][0]]
+                facts[implicated[x][0]] = key
             else:
                 facts[implicated[x][0]] = "undetermind"
                 
@@ -253,8 +254,8 @@ def work_out_rules():
                 # continue
             value = propergate(implicators[x])
             if not is_compound(implicated[x][0]):
-                print("\tNot a complex statement")
-                facts[implicated[x][0]] = not(value) or facts[implicated[x][0]]
+                # facts[implicated[x][0]] = not(value) | facts[implicated[x][0]]
+                facts[implicated[x][0]] = value
             else:
                 # facts[implicated[x][0]] = 'undefined'
                 imp_prop(implicated[x][0], value)
