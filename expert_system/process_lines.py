@@ -222,6 +222,7 @@ def sub_brackets(statement):
 
 """
     Start processsing the rules to determine if a rule is true, false or undertermined.
+    This function only works out 
 """
 def work_out_rules():
     global implications
@@ -252,13 +253,53 @@ def work_out_rules():
                 print("\timplications:", implicators[x])
 
                 # continue
+            # Propegate through the rules.
             value = propergate(implicators[x])
+
             if not is_compound(implicated[x][0]):
                 # facts[implicated[x][0]] = not(value) | facts[implicated[x][0]]
                 facts[implicated[x][0]] = value
             else:
                 # facts[implicated[x][0]] = 'undefined'
                 imp_prop(implicated[x][0], value)
+
+
+"""
+    This function works on the bi-implication.
+"""
+def work_out_bi():
+    global bi_implications
+    global facts
+
+    if not bi_implications:
+        print("There are no if and only if's")
+        return
+    implicators = list(bi_implications.keys())
+    implicated = list(bi_implications.values())
+
+    for x in range(len(implicators)):
+        if not is_compound(implicators[x]):
+            key = facts[implicators[x]]
+            if not is_compound(implicated[x][0]):
+                facts[implicated[x][0]] = key
+            else:
+                facts[implicated[x][0]] = 'undetermined'
+        else:
+            if '(' in  implicators[x]:
+                print('statement has a bracket')
+                sub_brackets(implicators[x])
+                implicators[x] = re.sub(r" ?\([^)]+\)", "@", implicators[x])
+                print("\timplications:", implicators[x])
+
+                value = propergate(implicated[x])
+                if not is_compound(implicated[x][0]):
+                    facts[implicated[x][0]] = value
+                else:
+                    imp_prop(implicated[x][[0]], value)
+
+               
+    print(implicators)
+    print(implicated)
 
 
 def answer_q():

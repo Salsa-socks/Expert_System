@@ -15,7 +15,7 @@
 
 import string
 from read_file import readfile
-from process_lines import process_lines, set_initial_facts, process_rules, work_out_rules, answer_q
+from process_lines import process_lines, set_initial_facts, process_rules, work_out_rules, answer_q, work_out_bi
 from values import rules, queries, inital_facts, facts, implications, bi_implications
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -35,16 +35,21 @@ process_lines(file_text)
 set_initial_facts()
 # print(facts)
 process_rules(rules)
-print("implications", implications)
-print("bi_implications", bi_implications)
+# print("implications", implications)
+# print("bi_implications", bi_implications)
 
 # workout the  rules.
 work_out_rules()
-print("Facts", facts)
+# print("Facts", facts)
 
-print("Workout the values again")
+
+# print("Workout the values again")
 work_out_rules()
-print('\n\nFacts', facts)
+# print('\n\nFacts', facts)
+
+# workout bi_implication.
+work_out_bi()
+
 
 G=nx.Graph()
 plt.figure(num='Expert System')
@@ -119,7 +124,6 @@ patch_facts = patch_facts.replace("=",'')
 patch_facts = patch_facts.replace('# Initial statements', '')
 patch_facts = patch_facts.replace(' ', '')
 
-plt.savefig("graph.png")
 red_patch = mpatches.Patch(color='red', label='False')
 grn_patch = mpatches.Patch(color='green', label='True ')
 qry_patch = mpatches.Patch(color='orange', Label=patch_query)
@@ -127,4 +131,6 @@ ans_patch = mpatches.Patch(color='blue', Label=patch_facts)
 plt.legend(handles=[red_patch, grn_patch, qry_patch, ans_patch])
 nx.draw_networkx_labels(G,pos,labels,font_size=10)
 plt.axis('off')
+
+plt.savefig("graph.png")
 plt.show()
