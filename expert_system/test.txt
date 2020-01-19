@@ -3,7 +3,6 @@
 A | B + C => E
 (F | G) + H => E
 
-
 =C                    # Initial statements.
 
 ?E                 # Queries
